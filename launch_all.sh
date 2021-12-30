@@ -28,7 +28,7 @@ aws cloudformation deploy \
     --region ${REGION} \
     --stack-name ${STACK_NAME} \
     --capabilities CAPABILITY_NAMED_IAM \
-    --parameter-overrides HttpProxyServiceName=${HTTP_PROXY_ENDPOINT_SERVICE_NAME} StackPrefix=${CLUSTER_NAME}
+    --parameter-overrides  StackPrefix=${CLUSTER_NAME}
 
 VPC_ID=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='VPCId'].OutputValue" --output text`
 SUBNETS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='Subnets'].OutputValue" --output text`
@@ -36,11 +36,11 @@ ROLE_ARN=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region
 MASTER_SECURITY_GROUPS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='MasterSecurityGroup'].OutputValue" --output text`
 WORKER_SECURITY_GROUPS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='EndpointClientSecurityGroup'].OutputValue" --output text`
 EKS_CLUSTER_KMS_ARN=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='MasterKeyArn'].OutputValue" --output text`
-PROXY_URL=${HTTP_PROXY_ENDPOINT_SERVICE_NAME}
-if [ "${HTTP_PROXY_ENDPOINT_SERVICE_NAME}" != "" ]
-then
-    PROXY_URL=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='HttpProxyUrl'].OutputValue" --output text`
-fi
+#PROXY_URL=${HTTP_PROXY_ENDPOINT_SERVICE_NAME}
+#if [ "${HTTP_PROXY_ENDPOINT_SERVICE_NAME}" != "" ]
+#then
+#   PROXY_URL=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='HttpProxyUrl'].OutputValue" --output text`
+#fi
 
 aws eks create-cluster \
     --name ${CLUSTER_NAME} \
