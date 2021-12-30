@@ -144,9 +144,6 @@ Parameters:
   ClusterAPIEndpoint:
     Description: Private API endpoint for EKS cluster
     Type: String
-  HttpsProxy:
-    Description: HTTPS proxy for access to external resources such as ECR 
-    Type: String
   ClusterCA:
     Description: Certificate for EKS cluster
     Type: String
