@@ -13,7 +13,7 @@ SUBNETS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region 
 ROLE_ARN=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='MasterRoleArn'].OutputValue" --output text`
 MASTER_SECURITY_GROUPS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='MasterSecurityGroup'].OutputValue" --output text`
 WORKER_SECURITY_GROUPS=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='EndpointClientSecurityGroup'].OutputValue" --output text`
-PROXY_URL=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='HttpProxyUrl'].OutputValue" --output text`
+#PROXY_URL=`aws cloudformation describe-stacks --stack-name ${STACK_NAME} --region ${REGION} --query "Stacks[0].Outputs[?OutputKey=='HttpProxyUrl'].OutputValue" --output text`
 
 ENDPOINT=`aws eks describe-cluster --name ${CLUSTER_NAME} --query 'cluster.endpoint' --output text --region ${REGION}`
 CERT_DATA=`aws eks describe-cluster --name ${CLUSTER_NAME} --query 'cluster.certificateAuthority.data' --output text --region ${REGION}`
@@ -67,7 +67,6 @@ else
         VpcCidr=${VPC_CIDR} \
         ClusterAPIEndpoint=${ENDPOINT} \
         ClusterCA=${CERT_DATA} \
-        HttpsProxy=${PROXY_URL} \
         WorkerSecurityGroup=${WORKER_SECURITY_GROUPS} \
         UserToken=${TOKEN} \
         KubectlS3Location="s3://${S3_STAGING_LOCATION}/kubectl"
