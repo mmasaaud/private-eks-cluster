@@ -10,5 +10,5 @@ INSTANCE_TYPE=t3.large # instance type for EKS worker nodes
 S3_STAGING_LOCATION=poc-octank-ab3-mmasaaud # S3 location to be created to store Cloudformation templates and a copy of the kubectl binary
 ENABLE_PUBLIC_ACCESS=false
 ENABLE_FARGATE=false
-FARGATE_PROFILE_NAME=PrivateFargateProfile
-FARGATE_NAMESPACE=fargate
+#FARGATE_PROFILE_NAME=PrivateFargateProfile
+#FARGATE_NAMESPACE=fargate
